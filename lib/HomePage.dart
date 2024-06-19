@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/details.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,6 +27,24 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        iconSize: 40,
+        selectedItemColor: Colors.orange,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "*",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag_outlined),
+            label: "*",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: "*",
+          ),
+        ],
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Container(
@@ -90,24 +109,27 @@ class _HomePageState extends State<HomePage> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: 250),
-                  itemCount: items.length,
+                itemCount: items.length,
                 itemBuilder: (context, i){
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(20),
-                          width: 300,
-                          color: Colors.grey[200],
-                          child: items[i]['image'],
-                        ),
-                        Text(items[i]["title"], style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-                        Container(height: 2,),
-                        Text(items[i]["subtitle"], style: TextStyle(fontSize: 14, color: Colors.grey),),
-                        Container(height: 10,),
-                        Text(items[i]["price"], style: TextStyle(fontSize: 14, color: Colors.orange, fontWeight: FontWeight.bold),),
-                      ],
+                  return InkWell(
+                    onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => ItemDetails(dataItems: items[i],)));},
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(20),
+                            width: 300,
+                            color: Colors.grey[200],
+                            child: items[i]['image'],
+                          ),
+                          Text(items[i]["title"], style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                          Container(height: 2,),
+                          Text(items[i]["subtitle"], style: TextStyle(fontSize: 14, color: Colors.grey),),
+                          Container(height: 10,),
+                          Text(items[i]["price"], style: TextStyle(fontSize: 14, color: Colors.orange, fontWeight: FontWeight.bold),),
+                        ],
+                      ),
                     ),
                   );
                 }
